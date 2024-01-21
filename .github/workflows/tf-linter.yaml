@@ -37,7 +37,8 @@ jobs:
         id: changes
         with:
           filters: |
-            - 'src/${{ matrix.module }}/**'
+            template:
+              - 'src/${{ matrix.module }}/**'
       
       - name: Setup Terraform
         if: steps.changes.outputs.template == 'true'
