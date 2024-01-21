@@ -27,6 +27,7 @@ jobs:
       matrix:
         module:
           - aws-acm
+          - aws-budget
           - cloudflare-zone
     
     steps:
