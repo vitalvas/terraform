@@ -26,6 +26,7 @@ jobs:
     strategy:
       matrix:
         module:
+          - aws-acm
           - cloudflare-zone
     
     steps:
