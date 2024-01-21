@@ -42,7 +42,7 @@ jobs:
       
       - name: Setup Terraform
         if: steps.changes.outputs.template == 'true'
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
       
       - name: Terraform fmt
         if: steps.changes.outputs.template == 'true'
