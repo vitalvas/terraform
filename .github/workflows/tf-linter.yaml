@@ -1,0 +1,59 @@
+name: Terraform linter
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: terraform-linter-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  TF_IN_AUTOMATION: "true"
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        module:
+          - cloudflare-zone
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Filter changes
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            - 'src/${{ matrix.module }}/**'
+      
+      - name: Setup Terraform
+        if: steps.changes.outputs.template == 'true'
+        uses: hashicorp/setup-terraform@v2
+      
+      - name: Terraform fmt
+        if: steps.changes.outputs.template == 'true'
+        working-directory: src/${{ matrix.module }}
+        run: terraform fmt -check
+      
+      - name: Terraform init
+        if: steps.changes.outputs.template == 'true'
+        working-directory: src/${{ matrix.module }}
+        run: terraform init -input=false
+      
+      - name: Terraform validate
+        if: steps.changes.outputs.template == 'true'
+        working-directory: src/${{ matrix.module }}
+        run: terraform validate
