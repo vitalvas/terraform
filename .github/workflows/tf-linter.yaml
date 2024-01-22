@@ -29,6 +29,7 @@ jobs:
           - aws-acm
           - aws-backup
           - aws-budget
+          - aws-ecr
           - aws-iam-user-service
           - aws-s3
           - aws-sns
