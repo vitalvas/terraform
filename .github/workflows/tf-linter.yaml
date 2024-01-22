@@ -30,6 +30,7 @@ jobs:
           - aws-backup
           - aws-budget
           - aws-iam-user-service
+          - aws-s3
           - aws-sns
           - cloudflare-zone
     
