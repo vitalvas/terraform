@@ -1,8 +1,18 @@
-variable "image_name" {
+variable "name" {
   type = string
 }
 
-variable "image_tag_immutable" {
+variable "tag_immutable" {
   type    = bool
   default = true
+}
+
+variable "force_delete" {
+  type    = bool
+  default = false
+}
+
+variable "scan_on_push" {
+  type    = bool
+  default = false
 }
