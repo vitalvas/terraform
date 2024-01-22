@@ -27,6 +27,7 @@ jobs:
       matrix:
         module:
           - aws-acm
+          - aws-backup
           - aws-budget
           - aws-sns
           - cloudflare-zone
