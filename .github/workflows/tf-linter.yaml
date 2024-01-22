@@ -29,6 +29,7 @@ jobs:
           - aws-acm
           - aws-backup
           - aws-budget
+          - aws-iam-user-service
           - aws-sns
           - cloudflare-zone
     
