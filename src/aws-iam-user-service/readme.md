@@ -11,7 +11,7 @@ module "sa_user_salsa" {
     "arn:aws:s3:::my-great-bucket",
   ]
   allowed_ips = [
-    "192.0.2.2/32", "2001:db8::11/32"
+    "192.0.2.2/32", "2001:db8::11/128"
   ]
 }
 ```
