@@ -45,6 +45,7 @@ data "aws_iam_policy_document" "github_actions_assume_role_policy_terraform" {
 }
 
 resource "aws_iam_role" "github_role" {
-  name               = var.name
-  assume_role_policy = data.aws_iam_policy_document.github_actions_assume_role_policy_terraform.json
+  name                  = var.name
+  assume_role_policy    = data.aws_iam_policy_document.github_actions_assume_role_policy_terraform.json
+  force_detach_policies = true
 }
