@@ -1,4 +1,4 @@
-resource "aws_ecr_repository" "this" {
+resource "aws_ecr_repository" "main" {
   name                 = var.name
   image_tag_mutability = var.tag_immutable ? "IMMUTABLE" : "MUTABLE"
   force_delete         = var.force_delete
@@ -12,8 +12,8 @@ resource "aws_ecr_repository" "this" {
   }
 }
 
-resource "aws_ecr_lifecycle_policy" "this" {
-  repository = aws_ecr_repository.this.name
+resource "aws_ecr_lifecycle_policy" "main" {
+  repository = aws_ecr_repository.main.name
 
   policy = jsonencode({
     rules = [
@@ -46,6 +46,6 @@ resource "aws_ecr_lifecycle_policy" "this" {
   })
 
   depends_on = [
-    aws_ecr_repository.this
+    aws_ecr_repository.main
   ]
 }
