@@ -28,6 +28,7 @@ jobs:
         module:
           - aws-acm
           - aws-budget
+          - aws-sns
           - cloudflare-zone
     
     steps:
