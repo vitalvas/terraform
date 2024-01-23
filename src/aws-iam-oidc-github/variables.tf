@@ -13,6 +13,7 @@ variable "policy_actions" {
     "cloudformation:*",
     "cloudfront:*",
     "iam:*",
+    "identitystore:*",
     "kms:*",
     "logs:*",
     "organizations:*",
