@@ -19,6 +19,7 @@ variable "policy_actions" {
     "s3:*",
     "sns:*",
     "sqs:*",
+    "sso:*",
   ]
 }
 
