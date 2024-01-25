@@ -34,6 +34,7 @@ jobs:
           - aws-iam-user-service
           - aws-s3
           - aws-sns
+          - aws-sso-permission-set
           - cloudflare-zone
     
     steps:
