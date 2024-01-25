@@ -14,14 +14,15 @@ module "github-repo" {
       resources = [
         "arn:aws:s3:::pixconf.vitalvas.dev",
         "arn:aws:s3:::pixconf.vitalvas.dev/*",
-        "cloudfront:CreateInvalidation",
+        "arn:aws:cloudfront::966137286427:distribution/AAAAAAAAAAAAA",
+        
       ]
       actions = [
         "s3:ListBucket",
         "s3:GetObject",
         "s3:PutObject",
         "s3:DeleteObject",
-        "arn:aws:cloudfront::966137286427:distribution/AAAAAAAAAAAAA",
+        "cloudfront:CreateInvalidation",
       ]
     }
   ]
