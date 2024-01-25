@@ -35,6 +35,7 @@ jobs:
           - aws-s3
           - aws-sns
           - aws-sso-permission-set
+          - aws-sso-user-group
           - cloudflare-zone
     
     steps:
