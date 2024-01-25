@@ -31,6 +31,7 @@ jobs:
           - aws-budget
           - aws-ecr
           - aws-iam-oidc-github
+          - aws-iam-oidc-github-repo
           - aws-iam-user-service
           - aws-s3
           - aws-sns
