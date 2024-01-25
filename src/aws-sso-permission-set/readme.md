@@ -21,7 +21,7 @@ locals {
 }
 
 module "sso_permission_set" {
-  source = "git::git::https://github.com/vitalvas/terraform.git//src/aws-sso-permission-set?ref=master"
+  source = "git::https://github.com/vitalvas/terraform.git//src/aws-sso-permission-set?ref=master"
 
   for_each = local.sso_permissions
 
