@@ -5,7 +5,7 @@ locals {
   repo_name_1 = replace(var.repo_name, "/", "-")
   repo_name   = replace(local.repo_name_1, ".", "-")
 
-  role_name = length(var.role_name) > 0 ? var.role_name : local.repo_name
+  role_name = length(var.role_name) > 0 ? var.role_name : "github-actions-${local.repo_name}"
 
   token_sub = length(var.token_sub) > 0 ? var.token_sub : ["repo:${var.repo_name}:ref:refs/heads/*"]
 
