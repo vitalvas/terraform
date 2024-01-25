@@ -1,6 +1,5 @@
 data "aws_caller_identity" "current" {}
 
-
 locals {
   repo_name_1 = replace(var.repo_name, "/", "-")
   repo_name   = replace(local.repo_name_1, ".", "-")
