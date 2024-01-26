@@ -20,7 +20,6 @@ variable "backup_vault_events" {
   type = list(string)
   default = [
     "BACKUP_JOB_EXPIRED",
-    "RECOVERY_POINT_MODIFIED",
     "BACKUP_PLAN_MODIFIED",
     "BACKUP_JOB_FAILED",
     "RESTORE_JOB_FAILED",
