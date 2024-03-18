@@ -52,13 +52,15 @@ variable "cloudfront_whitelist" {
 }
 
 variable "cloudfornt_default_ttl" {
-  type    = number
-  default = 86400
+  type     = number
+  default  = 86400
+  nullable = false
 }
 
 variable "cloudfront_max_ttl" {
-  type    = number
-  default = 604800
+  type     = number
+  default  = 604800
+  nullable = false
 }
 
 variable "cloudfront_blocked_countries" {
