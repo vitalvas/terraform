@@ -36,6 +36,7 @@ jobs:
           - aws-iam-oidc-github-repo
           - aws-iam-user-service
           - aws-s3
+          - aws-security-group
           - aws-sns
           - aws-sso-permission-set
           - aws-sso-user-group
