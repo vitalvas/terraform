@@ -1,34 +1,42 @@
 resource "aws_security_group" "main" {
   name   = var.name
   vpc_id = var.vpc_id
+
+  tags = {
+    Name = var.name
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "main" {
-  for_each = {
-    for sg_rule in var.ingress_rules : md5(jsonencode(var.ingress_rules)) => sg_rule
-  }
+  for_each = var.ingress_rules
 
   security_group_id = aws_security_group.main.id
 
-  description = lookup(each.value, "description", null)
-  cidr_ipv4   = lookup(each.value, "cidr_ipv4", null)
-  cidr_ipv6   = lookup(each.value, "cidr_ipv6", null)
-  from_port   = lookup(each.value, "from_port", null)
-  to_port     = lookup(each.value, "to_port", null)
-  ip_protocol = lookup(each.value, "ip_protocol", -1)
+  description = each.value.description
+  cidr_ipv4   = each.value.cidr_ipv4
+  cidr_ipv6   = each.value.cidr_ipv6
+  from_port   = each.value.from_port
+  to_port     = each.value.to_port
+  ip_protocol = each.value.ip_protocol
+
+  tags = {
+    Name = each.key
+  }
 }
 
 resource "aws_vpc_security_group_egress_rule" "main" {
-  for_each = {
-    for sg_rule in var.egress_rules : md5(jsonencode(var.egress_rules)) => sg_rule
-  }
+  for_each = var.egress_rules
 
   security_group_id = aws_security_group.main.id
 
-  description = lookup(each.value, "description", null)
-  cidr_ipv4   = lookup(each.value, "cidr_ipv4", null)
-  cidr_ipv6   = lookup(each.value, "cidr_ipv6", null)
-  from_port   = lookup(each.value, "from_port", null)
-  to_port     = lookup(each.value, "to_port", null)
-  ip_protocol = lookup(each.value, "ip_protocol", -1)
+  description = each.value.description
+  cidr_ipv4   = each.value.cidr_ipv4
+  cidr_ipv6   = each.value.cidr_ipv6
+  from_port   = each.value.from_port
+  to_port     = each.value.to_port
+  ip_protocol = each.value.ip_protocol
+
+  tags = {
+    Name = each.key
+  }
 }
