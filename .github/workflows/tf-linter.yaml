@@ -32,6 +32,7 @@ jobs:
           - aws-backup
           - aws-budget
           - aws-ecr
+          - aws-ecr-public
           - aws-iam-oidc-github
           - aws-iam-oidc-github-repo
           - aws-iam-user-service

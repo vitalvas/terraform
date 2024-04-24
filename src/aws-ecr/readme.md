@@ -5,6 +5,6 @@
 ```hcl
 module "ecr_infra_clamav" {
   source = "git::https://github.com/vitalvas/terraform.git//src/aws-ecr?ref=master"
-  image_name = "infra/clamav"
+  name = "infra/clamav"
 }
 ```
