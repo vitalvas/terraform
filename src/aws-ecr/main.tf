@@ -18,12 +18,13 @@ resource "aws_ecr_lifecycle_policy" "main" {
   policy = jsonencode({
     rules = [
       {
-        rulePriority = 1
-        description  = "Retain only the most recent 50 images"
+        rulePriority = 10
+        description  = "Only keep untagged images for 7 days"
         selection = {
-          tagStatus   = "any"
-          countType   = "imageCountMoreThan"
-          countNumber = 50
+          tagStatus   = "untagged"
+          countType   = "sinceImagePushed"
+          countUnit   = "days"
+          countNumber = 7
         }
         action = {
           type = "expire"
@@ -31,12 +32,11 @@ resource "aws_ecr_lifecycle_policy" "main" {
       },
       {
         rulePriority = 50
-        description  = "Only keep untagged images for 7 days"
+        description  = "Retain only the most recent 50 images"
         selection = {
-          tagStatus   = "untagged"
-          countType   = "sinceImagePushed"
-          countUnit   = "days"
-          countNumber = 7
+          tagStatus   = "any"
+          countType   = "imageCountMoreThan"
+          countNumber = 50
         }
         action = {
           type = "expire"
