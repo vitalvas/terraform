@@ -7,9 +7,9 @@ variable "vpc_id" {
 }
 
 variable "ingress_rule" {
-  type = any
+  type = list(any)
 }
 
 variable "egress_rule" {
-  type = any
+  type = list(any)
 }
