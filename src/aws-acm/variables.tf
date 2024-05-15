@@ -11,3 +11,8 @@ variable "validation_method" {
   type    = string
   default = "DNS"
 }
+
+variable "key_algorithm" {
+  type    = string
+  default = "RSA_2048"
+}
