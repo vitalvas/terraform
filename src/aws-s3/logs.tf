@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "logs" {
   count = local.enable_logs == true ? 1 : 0
 
-  bucket        = "${var.bucket_name}-awslogs"
+  bucket        = "${aws_s3_bucket.main.id}-awslogs"
   force_destroy = true
 
   tags = {

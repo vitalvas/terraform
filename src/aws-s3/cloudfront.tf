@@ -15,7 +15,7 @@ resource "aws_cloudfront_origin_access_control" "main" {
   count = var.cloudfront == true ? 1 : 0
 
   name                              = aws_s3_bucket.main.bucket_regional_domain_name
-  description                       = "S3: ${var.bucket_name}"
+  description                       = "S3: ${aws_s3_bucket.main.id}"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
@@ -24,7 +24,7 @@ resource "aws_cloudfront_origin_access_control" "main" {
 resource "aws_cloudfront_distribution" "main" {
   count = var.cloudfront == true ? 1 : 0
 
-  comment = "S3: ${var.bucket_name}"
+  comment = "S3: ${aws_s3_bucket.main.id}"
 
   enabled             = true
   wait_for_deployment = false
