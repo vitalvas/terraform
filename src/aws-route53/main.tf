@@ -23,7 +23,7 @@ resource "aws_route53_record" "main" {
 
     content {
       name                   = each.value.alias.name
-      zone_id                = try(each.value.alias.zone_id, aws_route53_zone.this.id)
+      zone_id                = try(each.value.alias.zone_id, aws_route53_zone.main.id)
       evaluate_target_health = lookup(each.value.alias, "evaluate_target_health", false)
     }
   }
