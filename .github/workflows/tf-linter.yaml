@@ -36,6 +36,7 @@ jobs:
           - aws-iam-oidc-github
           - aws-iam-oidc-github-repo
           - aws-iam-user-service
+          - aws-route53
           - aws-s3
           - aws-security-group
           - aws-sns
