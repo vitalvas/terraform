@@ -8,15 +8,15 @@ resource "aws_route53_record" "main" {
     for index, row in var.records : format("%s-%s", try(row.name, "__apex__"), row.type) => row
   }
 
-  zone_id = aws_route53_zone.main.id
+  zone_id         = aws_route53_zone.main.id
+  allow_overwrite = var.record_allow_overwrite
 
   name = lookup(each.value, "name", "") != "" ? "${each.value.name}.${var.name}" : var.name
   type = each.value.type
-  ttl  = length(keys(lookup(each.value, "alias", {}))) == 0 ? lookup(each.value, "ttl", var.record_default_ttl) : null
 
-  records = lookup(each.value, "records", null)
+  ttl = each.value.alias == null ? each.value.ttl : null
 
-  allow_overwrite = var.record_allow_overwrite
+  records = each.value.records != null ? each.value.records : []
 
   dynamic "alias" {
     for_each = length(keys(lookup(each.value, "alias", {}))) == 0 ? [] : [true]
@@ -24,7 +24,7 @@ resource "aws_route53_record" "main" {
     content {
       name                   = each.value.alias.name
       zone_id                = try(each.value.alias.zone_id, aws_route53_zone.main.id)
-      evaluate_target_health = lookup(each.value.alias, "evaluate_target_health", false)
+      evaluate_target_health = each.value.alias.evaluate_target_health
     }
   }
 

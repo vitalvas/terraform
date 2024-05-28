@@ -11,11 +11,12 @@ variable "records" {
   type = list(object({
     name    = string
     type    = string
+    ttl     = optional(number, 1800)
     records = optional(list(string))
     alias = optional(object({
       name                   = string
       zone_id                = string
-      evaluate_target_health = optional(bool)
+      evaluate_target_health = optional(bool, false)
     }))
   }))
 
@@ -26,11 +27,6 @@ variable "records" {
       records = ["dummy text"]
     }
   ]
-}
-
-variable "record_default_ttl" {
-  type    = number
-  default = 1800
 }
 
 variable "record_allow_overwrite" {
