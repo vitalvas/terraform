@@ -33,4 +33,6 @@ variable "dnssec_kms_keys" {
     key_arn  = string
     inactive = optional(bool)
   }))
+
+  default = []
 }
