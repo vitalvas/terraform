@@ -34,7 +34,7 @@ resource "aws_route53_record" "main" {
 }
 
 resource "aws_route53_key_signing_key" "main" {
-  for_each = { for row in var.dnssec_kms_keys : try(row.name, "main") => row }
+  for_each = { for row in var.dnssec_kms_keys : row.name => row }
 
   hosted_zone_id = aws_route53_zone.main.id
 

@@ -29,9 +29,9 @@ variable "dnssec_enabled" {
 
 variable "dnssec_kms_keys" {
   type = list(object({
-    name     = optional(string)
+    name     = optional(string, "main")
     key_arn  = string
-    inactive = optional(bool)
+    inactive = optional(bool, false)
   }))
 
   default = []
