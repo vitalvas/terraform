@@ -34,12 +34,12 @@ resource "aws_route53_record" "main" {
 }
 
 resource "aws_route53_key_signing_key" "main" {
-  for_each = toset(var.dnssec_kms_keys)
+  for_each = { for row in var.dnssec_kms_keys : try(row.name, "main") => row }
 
   hosted_zone_id = aws_route53_zone.main.id
 
-  name                       = try(var.name, "main")
-  key_management_service_arn = each.value
+  name                       = each.key
+  key_management_service_arn = each.value.key_arn
   status                     = try(each.value.inactive, false) ? "INACTIVE" : "ACTIVE"
 }
 
