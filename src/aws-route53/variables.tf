@@ -8,7 +8,17 @@ variable "delegation_set_id" {
 }
 
 variable "records" {
-  type = list(any)
+  type = list(object({
+    name    = string
+    type    = string
+    records = optional(list(string))
+    alias = optional(object({
+      name                   = string
+      zone_id                = string
+      evaluate_target_health = optional(bool)
+    }))
+  }))
+
   default = [
     {
       name    = "dummy"
