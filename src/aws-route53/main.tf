@@ -16,10 +16,10 @@ resource "aws_route53_record" "main" {
 
   ttl = each.value.alias == null ? each.value.ttl : null
 
-  records = each.value.records != null ? each.value.records : []
+  records = each.value.records != null ? each.value.records : null
 
   dynamic "alias" {
-    for_each = length(keys(lookup(each.value, "alias", {}))) == 0 ? [] : [true]
+    for_each = each.value.alias != null ? [true] : []
 
     content {
       name                   = each.value.alias.name
