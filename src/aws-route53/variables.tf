@@ -9,7 +9,7 @@ variable "delegation_set_id" {
 
 variable "records" {
   type    = list(any)
-  default = null
+  default = []
 }
 
 variable "record_default_ttl" {

@@ -37,3 +37,23 @@ module "zone_example_com" {
   ]
 }
 ```
+
+## Enable DNSSEC
+
+```hcl
+module "dnssec_key" {
+  source = "git::https://github.com/vitalvas/terraform.git//src/aws-route53-dnssec-key?ref=master"
+}
+
+module "zone_example_com" {
+  source = "git::https://github.com/vitalvas/terraform.git//src/aws-route53?ref=master"
+
+  name = "example.com"
+
+  dnssec_enabled = true
+  dnssec_kms_keys = [
+    { key_arn = module.dnssec_key.kms_key_arn }
+  ]
+
+}
+```
