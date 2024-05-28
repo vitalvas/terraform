@@ -8,8 +8,14 @@ variable "delegation_set_id" {
 }
 
 variable "records" {
-  type    = list(any)
-  default = []
+  type = list(any)
+  default = [
+    {
+      name    = "dummy"
+      type    = "TXT"
+      records = ["dummy text"]
+    }
+  ]
 }
 
 variable "record_default_ttl" {
