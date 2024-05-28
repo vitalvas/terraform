@@ -32,3 +32,23 @@ resource "aws_route53_record" "main" {
     aws_route53_zone.main
   ]
 }
+
+resource "aws_route53_key_signing_key" "main" {
+  for_each = toset(var.dnssec_kms_keys)
+
+  hosted_zone_id = aws_route53_zone.main.id
+
+  name                       = try(var.name, "main")
+  key_management_service_arn = each.value
+  status                     = try(each.value.inactive, false) ? "INACTIVE" : "ACTIVE"
+}
+
+resource "aws_route53_hosted_zone_dnssec" "main" {
+  count = var.dnssec_enabled ? 1 : 0
+
+  hosted_zone_id = aws_route53_zone.main.id
+
+  depends_on = [
+    aws_route53_zone.main
+  ]
+}

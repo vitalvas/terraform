@@ -21,3 +21,16 @@ variable "record_allow_overwrite" {
   type    = bool
   default = false
 }
+
+variable "dnssec_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "dnssec_kms_keys" {
+  type = list(object({
+    name     = optional(string)
+    key_arn  = string
+    inactive = optional(bool)
+  }))
+}
