@@ -31,6 +31,7 @@ jobs:
           - aws-acm
           - aws-backup
           - aws-budget
+          - aws-ec2-instance-connect
           - aws-ecr
           - aws-ecr-public
           - aws-iam-oidc-github
