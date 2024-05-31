@@ -4,7 +4,7 @@ variable "subnet_ids" {
 
 variable "security_group_ids" {
   type    = list(string)
-  default = []
+  default = null
 }
 
 variable "preserve_client_ip" {
