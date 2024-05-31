@@ -1,5 +1,10 @@
-variable "subnet_ids" {
-  type = list(string)
+variable "name" {
+  type    = string
+  default = "main"
+}
+
+variable "subnet_id" {
+  type = string
 }
 
 variable "security_group_ids" {
