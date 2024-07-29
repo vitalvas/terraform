@@ -24,3 +24,8 @@ variable "resources" {
     "arn:aws:s3:::vv-dummy"
   ]
 }
+
+variable "force_destroy" {
+  type    = bool
+  default = true
+}

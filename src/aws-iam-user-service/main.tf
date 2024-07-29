@@ -1,6 +1,7 @@
 resource "aws_iam_user" "main" {
-  name = "sa-${var.name}"
-  path = "/system/"
+  name          = "sa-${var.name}"
+  path          = "/system/"
+  force_destroy = var.force_destroy
 }
 
 resource "aws_iam_user_policy" "main" {
