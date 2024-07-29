@@ -70,6 +70,15 @@ variable "cloudfront_max_ttl" {
 }
 
 variable "cloudfront_blocked_countries" {
-  type    = list(string)
-  default = ["RU"]
+  type = list(string)
+  default = [
+    "RU", // Russia
+    "BY", // Belarus
+    "IR", // Iran
+    "YE", // Yemen
+    "NI", // Nicaragua
+    "SY", // Syria
+    "CU", // Cuba
+    "HU", // Hungary
+  ]
 }
