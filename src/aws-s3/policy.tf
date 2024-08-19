@@ -46,9 +46,10 @@ locals {
     }
   }
 
+
   bucket_policy_statements = concat(
-    var.cloudfront == true ? [local.policy_cloudfront_statement, local.policy_referer_statement] : [],
-    var.policy_enable_ses == true ? [local.policy_ses_statement] : [],
+    var.cloudfront == true ? [local.policy_cloudfront_statement, local.policy_referer_statement] : null,
+    var.policy_enable_ses == true ? [local.policy_ses_statement] : null,
   )
 }
 
