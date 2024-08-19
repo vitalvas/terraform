@@ -16,7 +16,7 @@ resource "cloudflare_record" "main" {
 
   name     = try(each.value.name, var.name)
   type     = each.value.type
-  value    = try(each.value.value, null)
+  content  = try(each.value.value, null)
   priority = try(each.value.priority, null)
   proxied  = try(each.value.proxied, false)
   ttl      = try(each.value.ttl, 1)
