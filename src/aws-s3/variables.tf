@@ -82,3 +82,8 @@ variable "cloudfront_blocked_countries" {
     "HU", // Hungary
   ]
 }
+
+variable "policy_enable_ses" {
+  type    = bool
+  default = false
+}

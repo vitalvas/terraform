@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 locals {
   enable_logs     = var.cloudfront == true ? true : false
   lifecycle_rules = try(jsondecode(var.lifecycle_rule), var.lifecycle_rule)
