@@ -1,6 +1,6 @@
 locals {
 
-  policy_cloudfront_statement = {
+  policy_cloudfront_statement = length(aws_cloudfront_distribution.main) > 0 ? {
     Effect = "Allow"
     Principal = {
       Service = "cloudfront.amazonaws.com"
@@ -14,7 +14,7 @@ locals {
         "AWS:SourceArn" = aws_cloudfront_distribution.main[0].arn
       }
     }
-  }
+  } : null
 
   policy_referer_statement = {
     Effect    = "Allow"
