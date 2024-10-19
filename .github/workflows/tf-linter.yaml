@@ -45,7 +45,7 @@ jobs:
       env:
         CHANGED_FILES: "${{ steps.changed_files.outputs.all_files }}"
       run: |
-        matrix_dirs=$(echo "${CHANGED_FILES}" | grep -Eo 'src/([a-z0-9-]+)/([a-z0-9-]+)' | sort | uniq)
+        matrix_dirs=$(echo "${CHANGED_FILES}" | grep -Eo 'src/([a-z0-9-]+)' | sort | uniq)
 
         exists_dirs=""
         for dir in $matrix_dirs; do
