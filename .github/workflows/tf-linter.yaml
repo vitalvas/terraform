@@ -22,57 +22,74 @@ env:
   TF_IN_AUTOMATION: "true"
 
 jobs:
+  pre-linter:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix_build: ${{ steps.filter.outputs.matrix_build }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Get changed files
+      id: changed_files
+      uses: dorny/paths-filter@v3
+      with:
+        list-files: "shell"
+        filters: |
+          all:
+            - added|deleted|modified: 'src/**/*.tf'
+
+    - name: Set matrix build
+      id: filter
+      env:
+        CHANGED_FILES: "${{ steps.changed_files.outputs.all_files }}"
+      run: |
+        matrix_dirs=$(echo "${CHANGED_FILES}" | grep -Eo 'src/([a-z0-9-]+)/([a-z0-9-]+)' | sort | uniq)
+
+        exists_dirs=""
+        for dir in $matrix_dirs; do
+          if [ -d "$dir" ]; then
+            exists_dirs="$exists_dirs $dir"
+          fi
+        done
+
+        matrix_build=$(echo "${exists_dirs}" | tr ' ' '\n' | jq -Rn --compact-output '[inputs | split("/") | select(length > 0) | {module: .[1]}]')
+
+        if [ -z "${matrix_build}" ]; then
+          matrix_build_output=$(echo "matrix_build=[]")
+        else
+          matrix_build_output=$(echo "matrix_build=${matrix_build}")
+        fi
+
+        echo "matrix: ${matrix_build_output}"
+        echo "${matrix_build_output}" >> $GITHUB_OUTPUT
+    
+
   linter:
     runs-on: ubuntu-latest
+    needs: pre-linter
+    if: needs.pre-linter.outputs.matrix_build != '[]' && needs.pre-linter.outputs.matrix_build != ''
 
     strategy:
       matrix:
-        module:
-          - aws-acm
-          - aws-backup
-          - aws-budget
-          - aws-ec2-instance-connect
-          - aws-ecr
-          - aws-ecr-public
-          - aws-iam-oidc-github
-          - aws-iam-oidc-github-repo
-          - aws-iam-user-service
-          - aws-route53
-          - aws-route53-dnssec-key
-          - aws-s3
-          - aws-security-group
-          - aws-sns
-          - aws-sso-permission-set
-          - aws-sso-user-group
-          - cloudflare-zone
-    
+        include: ${{ fromJSON(needs.pre-linter.outputs.matrix_build) }}
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Filter changes
-        uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            template:
-              - 'src/${{ matrix.module }}/**'
-      
-      - name: Setup Terraform
-        if: steps.changes.outputs.template == 'true'
-        uses: hashicorp/setup-terraform@v3
-      
-      - name: Terraform fmt
-        if: steps.changes.outputs.template == 'true'
-        working-directory: src/${{ matrix.module }}
-        run: terraform fmt -check
-      
-      - name: Terraform init
-        if: steps.changes.outputs.template == 'true'
-        working-directory: src/${{ matrix.module }}
-        run: terraform init -input=false
-      
-      - name: Terraform validate
-        if: steps.changes.outputs.template == 'true'
-        working-directory: src/${{ matrix.module }}
-        run: terraform validate
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform fmt
+      working-directory: src/${{ matrix.module }}
+      run: terraform fmt -check
+
+    - name: Terraform init
+      working-directory: src/${{ matrix.module }}
+      run: terraform init -input=false
+
+    - name: Terraform validate
+      working-directory: src/${{ matrix.module }}
+      run: terraform validate
