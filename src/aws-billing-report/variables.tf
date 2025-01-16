@@ -30,7 +30,7 @@ variable "additional_schema_elements" {
 variable "reports_s3_prefix" {
   description = "S3 prefix for the billing reports"
   type        = string
-  default     = "reports/"
+  default     = "reports"
 }
 
 variable "refresh_closed_reports" {
