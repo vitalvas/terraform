@@ -24,14 +24,13 @@ variable "compression" {
 variable "additional_schema_elements" {
   description = "Additional schema elements (e.g., RESOURCES)"
   type        = list(string)
-  default     = ["RESOURCES", "SPLIT_COST_ALLOCATION_DATA"]
+  default     = ["RESOURCES"]
 }
-
 
 variable "reports_s3_prefix" {
   description = "S3 prefix for the billing reports"
   type        = string
-  default     = "billing-reports/"
+  default     = "reports/"
 }
 
 variable "refresh_closed_reports" {

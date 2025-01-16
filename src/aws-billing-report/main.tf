@@ -48,12 +48,13 @@ resource "aws_s3_bucket_policy" "main" {
           Service = "billingreports.amazonaws.com"
         }
         Action   = ["s3:PutObject"]
-        Resource = "${aws_s3_bucket.main.arn}/${var.reports_s3_prefix}/*"
+        Resource = "${aws_s3_bucket.main.arn}/*"
       }
     ]
   })
 }
 
+data "aws_caller_identity" "main" {}
 
 resource "aws_cur_report_definition" "main" {
   report_name                = var.report_name
@@ -62,7 +63,7 @@ resource "aws_cur_report_definition" "main" {
   compression                = var.compression
   additional_schema_elements = var.additional_schema_elements
   s3_bucket                  = aws_s3_bucket.main.bucket
-  s3_prefix                  = var.reports_s3_prefix
+  s3_prefix                  = "${var.reports_s3_prefix}/${data.aws_caller_identity.main.account_id}"
   s3_region                  = aws_s3_bucket.main.region
   refresh_closed_reports     = var.refresh_closed_reports
   report_versioning          = var.report_versioning
