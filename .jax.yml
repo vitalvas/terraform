@@ -1,0 +1,8 @@
+project: automation/terraform
+atrium:
+  realm: github/public
+  owner: [g:automation]
+  secrets:
+    - type: haven
+      namespace: tests
+      secret: sec-b374450e13da8b0ba6736e03
