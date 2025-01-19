@@ -3,7 +3,7 @@ resource "aws_security_group" "main" {
   vpc_id = var.vpc_id
 
 
-  ingress = {
+  ingress {
     description = "EFS mount target"
     from_port   = 2049
     to_port     = 2049
