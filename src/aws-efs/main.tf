@@ -1,4 +1,4 @@
-resource "security_group" "main" {
+resource "aws_security_group" "main" {
   name   = "efs-${var.name}"
   vpc_id = var.vpc_id
 
