@@ -34,10 +34,15 @@ resource "aws_cloudfront_distribution" "main" {
 
   aliases = var.cloudfront_aliases
 
-  logging_config {
-    bucket          = aws_s3_bucket.logs[0].bucket_domain_name
-    include_cookies = false
-    prefix          = "cloudfront/"
+
+  dynamic "logging_config" {
+    for_each = var.logs_target_bucket != null ? [1] : []
+
+    content {
+      bucket          = var.logs_target_bucket
+      include_cookies = false
+      prefix          = "${var.logs_target_prefix}/cloudfront/"
+    }
   }
 
   default_cache_behavior {
@@ -108,9 +113,4 @@ resource "aws_cloudfront_distribution" "main" {
       locations        = local.cloudfront_geo_restriction_locations
     }
   }
-
-  depends_on = [
-    aws_s3_bucket.logs,
-    aws_s3_bucket_ownership_controls.logs,
-  ]
 }

@@ -120,3 +120,11 @@ resource "aws_s3_bucket_policy" "main" {
   bucket = aws_s3_bucket.main.id
   policy = var.bucket_policy
 }
+
+resource "aws_s3_bucket_logging" "main" {
+  count = var.logs_target_bucket != null ? 1 : 0
+
+  bucket        = aws_s3_bucket.main.id
+  target_bucket = var.logs_target_bucket
+  target_prefix = "${var.logs_target_prefix}/s3/"
+}

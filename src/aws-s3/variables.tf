@@ -87,3 +87,13 @@ variable "bucket_policy" {
   type    = string
   default = null
 }
+
+variable "logs_target_bucket" {
+  type    = string
+  default = null
+}
+
+variable "logs_target_prefix" {
+  type    = string
+  default = ""
+}
