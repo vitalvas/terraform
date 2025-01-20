@@ -114,3 +114,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
     aws_s3_bucket.main
   ]
 }
+
+resource "aws_s3_bucket_policy" "main" {
+  count  = var.bucket_policy != null ? 1 : 0
+  bucket = aws_s3_bucket.main.id
+  policy = var.bucket_policy
+}

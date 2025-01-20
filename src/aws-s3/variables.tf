@@ -82,3 +82,8 @@ variable "cloudfront_blocked_countries" {
     "HU", // Hungary
   ]
 }
+
+variable "bucket_policy" {
+  type    = string
+  default = null
+}
