@@ -36,6 +36,16 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "main" {
 }
 
 resource "aws_s3_bucket_ownership_controls" "main" {
+  count = var.bucket_object_ownership == null ? 1 : 0
+
+  bucket = aws_s3_bucket.main.id
+
+  rule {
+    object_ownership = var.bucket_object_ownership
+  }
+}
+
+resource "aws_s3_bucket_ownership_controls" "main-website" {
   count = var.website != null ? 1 : 0
 
   bucket = aws_s3_bucket.main.id

@@ -97,3 +97,8 @@ variable "logs_target_prefix" {
   type    = string
   default = ""
 }
+
+variable "bucket_object_ownership" {
+  type    = string
+  default = null
+}
