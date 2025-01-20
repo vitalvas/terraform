@@ -39,9 +39,9 @@ resource "aws_cloudfront_distribution" "main" {
     for_each = var.logs_target_bucket != null ? [1] : []
 
     content {
-      bucket          = var.logs_target_bucket
+      bucket          = "${var.logs_target_bucket}.s3.amazonaws.com"
       include_cookies = false
-      prefix          = "${var.logs_target_prefix}/cloudfront/"
+      prefix          = "${var.logs_target_prefix}cloudfront/"
     }
   }
 

@@ -126,5 +126,5 @@ resource "aws_s3_bucket_logging" "main" {
 
   bucket        = aws_s3_bucket.main.id
   target_bucket = var.logs_target_bucket
-  target_prefix = "${var.logs_target_prefix}/s3/"
+  target_prefix = "${var.logs_target_prefix}s3/"
 }
