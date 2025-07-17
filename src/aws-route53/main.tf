@@ -11,7 +11,7 @@ resource "aws_route53_record" "main" {
   zone_id         = aws_route53_zone.main.id
   allow_overwrite = var.record_allow_overwrite
 
-  name = lookup(each.value, "name", "") != "" ? "${each.value.name}.${var.name}" : var.name
+  name = try(each.value.name, null) != null && each.value.name != "" ? "${each.value.name}.${var.name}" : var.name
   type = each.value.type
 
   ttl = each.value.alias == null ? each.value.ttl : null
