@@ -5,7 +5,7 @@ resource "aws_route53_zone" "main" {
 
 resource "aws_route53_record" "main" {
   for_each = {
-    for index, row in var.records : format("%s-%s", try(row.name, "__apex__"), row.type) => row
+    for index, row in var.records : format("%s-%s", coalesce(row.name, "__apex__"), row.type) => row
   }
 
   zone_id         = aws_route53_zone.main.id
