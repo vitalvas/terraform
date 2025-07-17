@@ -9,7 +9,7 @@ variable "delegation_set_id" {
 
 variable "records" {
   type = list(object({
-    name    = string
+    name    = optional(string)
     type    = string
     ttl     = optional(number, 1800)
     records = optional(list(string))
