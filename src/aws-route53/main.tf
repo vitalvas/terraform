@@ -28,6 +28,10 @@ resource "aws_route53_record" "main" {
     }
   }
 
+  lifecycle {
+    create_before_destroy = false
+  }
+
   depends_on = [
     aws_route53_zone.main
   ]

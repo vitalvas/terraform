@@ -31,7 +31,7 @@ variable "records" {
 
 variable "record_allow_overwrite" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "dnssec_enabled" {
