@@ -35,5 +35,15 @@ resource "cloudflare_record" "main" {
     }
   }
 
+  dynamic "data" {
+    for_each = each.value.type == "CAA" ? [1] : []
+
+    content {
+      flags = try(each.value.caa_flags, 0)
+      tag   = each.value.caa_tag
+      value = each.value.caa_value
+    }
+  }
+
   comment = "Managed by Terraform"
 }
