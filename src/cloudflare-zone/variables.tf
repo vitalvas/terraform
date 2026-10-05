@@ -21,6 +21,11 @@ variable "type" {
   default = "full"
 }
 
+variable "dnssec" {
+  type    = bool
+  default = false
+}
+
 variable "records" {
   type    = list(any)
   default = null

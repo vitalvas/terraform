@@ -7,6 +7,11 @@ resource "cloudflare_zone" "main" {
   jump_start = false
 }
 
+resource "cloudflare_zone_dnssec" "main" {
+  count   = var.dnssec ? 1 : 0
+  zone_id = cloudflare_zone.main.id
+}
+
 resource "cloudflare_record" "main" {
   zone_id = cloudflare_zone.main.id
 
