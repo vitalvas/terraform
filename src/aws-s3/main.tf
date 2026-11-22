@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "main" {
-  bucket           = var.bucket_name
+  bucket           = local.bucket_name
   bucket_prefix    = var.bucket_prefix
   bucket_namespace = var.bucket_namespace
 }
