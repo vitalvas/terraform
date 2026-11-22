@@ -1,5 +1,5 @@
 resource "aws_s3_bucket_policy" "website" {
-  count = var.website != null ? 1 : 0
+  count = var.website != null || var.cloudfront == true ? 1 : 0
 
   bucket = aws_s3_bucket.main.id
   policy = jsonencode({

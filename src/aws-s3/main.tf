@@ -14,7 +14,7 @@ resource "aws_s3_bucket_versioning" "main" {
 }
 
 locals {
-  bucket_private_acl = var.website == null
+  bucket_private_acl = var.website == null && var.cloudfront != true
 }
 
 resource "aws_s3_bucket_public_access_block" "main" {
