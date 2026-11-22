@@ -54,6 +54,30 @@ resource "aws_cloudfront_distribution" "main" {
     }
   }
 
+  dynamic "ordered_cache_behavior" {
+    for_each = var.cloudfront_ordered_cache_behaviors
+
+    content {
+      path_pattern           = ordered_cache_behavior.value.path_pattern
+      allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+      cached_methods         = ["GET", "HEAD"]
+      target_origin_id       = aws_s3_bucket.main.bucket_regional_domain_name
+      viewer_protocol_policy = var.cloudfront_viewer_protocol_policy
+      compress               = true
+
+      min_ttl     = try(ordered_cache_behavior.value.min_ttl, null) != null ? ordered_cache_behavior.value.min_ttl : 60
+      default_ttl = try(ordered_cache_behavior.value.default_ttl, null) != null ? ordered_cache_behavior.value.default_ttl : var.cloudfornt_default_ttl
+      max_ttl     = try(ordered_cache_behavior.value.max_ttl, null) != null ? ordered_cache_behavior.value.max_ttl : var.cloudfront_max_ttl
+
+      forwarded_values {
+        query_string = false
+        cookies {
+          forward = "none"
+        }
+      }
+    }
+  }
+
   origin {
     domain_name = var.website != null ? aws_s3_bucket_website_configuration.main[0].website_endpoint : aws_s3_bucket.main.bucket_regional_domain_name
     origin_id   = aws_s3_bucket.main.bucket_regional_domain_name

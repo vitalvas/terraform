@@ -79,6 +79,17 @@ variable "cloudfront_max_ttl" {
   nullable = false
 }
 
+variable "cloudfront_ordered_cache_behaviors" {
+  type = list(object({
+    path_pattern = string
+    min_ttl      = optional(number)
+    default_ttl  = optional(number)
+    max_ttl      = optional(number)
+  }))
+  default  = []
+  nullable = false
+}
+
 variable "cloudfront_blocked_countries" {
   type = list(string)
   default = [
