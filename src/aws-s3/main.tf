@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "main" {
-  bucket        = var.bucket_name
-  bucket_prefix = var.bucket_prefix
+  bucket           = var.bucket_name
+  bucket_prefix    = var.bucket_prefix
+  bucket_namespace = var.bucket_namespace
 }
 
 resource "aws_s3_bucket_versioning" "main" {
